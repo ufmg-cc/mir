@@ -58,7 +58,7 @@ def surprise(pMs, data, hipoteses, tick_range = None):
         for frequence in range(data.shape[1]): 
             #Para cada crença
             for i in range(len(diferencas)):
-                diferencas[i] = matriz_diferencas[i,:].sum()
+                diferencas[i] = matriz_diferencas[i,frequence]
                 pDMs[i] = 1 - np.abs(diferencas[i])
             pMDs = pMs*pDMs
     
