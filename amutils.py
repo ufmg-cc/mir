@@ -55,28 +55,28 @@ def surprise(pMs, data, hipoteses, tick_range = None):
             matriz_diferencas[i] = data[tick, :] - normalize(hipoteses[i](data, tick))
     
     
-        
-        #Para cada crença
-        for i in range(len(diferencas)):
-            diferencas[i] = matriz_diferencas[i,:].sum()
-            pDMs[i] = 1 - np.abs(diferencas[i])
-        pMDs = pMs*pDMs
+        for frequence in range(data.shape[1]): 
+            #Para cada crença
+            for i in range(len(diferencas)):
+                diferencas[i] = matriz_diferencas[i,:].sum()
+                pDMs[i] = 1 - np.abs(diferencas[i])
+            pMDs = pMs*pDMs
     
     
         #At this point we already have pMDs and pMs, lets calculate their divergence
           
-        kl = 0
-        voteSum = 0
-        for j in range(len(pMDs)):
-            kl = kl + pMDs[j] * np.log( pMDs[j] / pMs[j])
-            voteSum = voteSum + diferencas[j] * pMs[j]
-            soma_das_diferencas[j] = soma_das_diferencas[j] + np.abs(diferencas[j])
+            kl = 0
+            voteSum = 0
+            for j in range(len(pMDs)):
+                kl = kl + pMDs[j] * np.log( pMDs[j] / pMs[j])
+                voteSum = voteSum + diferencas[j] * pMs[j]
+                soma_das_diferencas[j] = soma_das_diferencas[j] + np.abs(diferencas[j])
     
     
-        if voteSum >= 0 :
-            surpriseData[tick, frequence] = np.abs(kl) 
-        else:
-            surpriseData[tick, frequence] = -1*np.abs(kl)
+            if voteSum >= 0 :
+                surpriseData[tick, frequence] = np.abs(kl) 
+            else:
+                surpriseData[tick, frequence] = -1*np.abs(kl)
           
         #Now lets globally update our model belief.
         
