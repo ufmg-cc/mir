@@ -22,7 +22,7 @@ def normalize(array):
   return np.array(array)/np.sum(array)
 
 
-def surprise(pMs, data, hipoteses, tick_range = None):
+def surprise(pMs, data, hipoteses, tick_range = None, *args):
     if tick_range == None:
         tick_range = range(data.shape[0])
   
@@ -52,7 +52,7 @@ def surprise(pMs, data, hipoteses, tick_range = None):
         
         # Estimating the pMD
         for i in range(len(hipoteses)):
-            matriz_diferencas[i] = normalize(data[tick, :]) - normalize(hipoteses[i](data, tick))
+            matriz_diferencas[i] = normalize(data[tick, :]) - normalize(hipoteses[i](data, tick, args))
     
     
         for frequence in range(data.shape[1]): 
