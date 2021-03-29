@@ -52,7 +52,7 @@ def surprise(pMs, data, hipoteses, tick_range = None):
         
         # Estimating the pMD
         for i in range(len(hipoteses)):
-            matriz_diferencas[i] = data[tick, :] - normalize(hipoteses[i](data, tick))
+            matriz_diferencas[i] = normalize(data[tick, :]) - normalize(hipoteses[i](data, tick))
     
     
         for frequence in range(data.shape[1]): 
